@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ektorp</groupId>
 	<artifactId>org.ektorp</artifactId>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 	<name>Ektorp</name>
 	<version>1.4.3-SNAPSHOT</version>
 	<description>a Java CouchDB persistence library</description>
@@ -11,6 +11,106 @@
 		<groupId>org.ektorp</groupId>
 		<version>1.4.3-SNAPSHOT</version>
 	</parent>
+
+<build>
+  <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>bundle-manifest</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>manifest</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Import-Package>
+              com.fasterxml.jackson.annotation;version="[2.2,3)",
+              com.fasterxml.jackson.core;version="[2.2,3)",
+              com.fasterxml.jackson.core.type;version="[2.2,3)",
+              com.fasterxml.jackson.databind;version="[2.2,3)",
+              com.fasterxml.jackson.databind.annotation;version="[2.2,3)",
+              com.fasterxml.jackson.databind.cfg;version="[2.2,3)",
+              com.fasterxml.jackson.databind.deser;version="[2.2,3)",
+              com.fasterxml.jackson.databind.deser.impl;version="[2.2,3)",
+              com.fasterxml.jackson.databind.deser.std;version="[2.2,3)",
+              com.fasterxml.jackson.databind.introspect;version="[2.2,3)",
+              com.fasterxml.jackson.databind.jsontype;version="[2.2,3)",
+              com.fasterxml.jackson.databind.node;version="[2.2,3)",
+              com.fasterxml.jackson.databind.ser;version="[2.2,3)",
+              com.fasterxml.jackson.databind.type;version="[2.2,3)",
+              com.fasterxml.jackson.databind.util;version="[2.2,3)",
+              javax.net.ssl,
+              org.apache.commons.io;version="[2.0,3)",
+              org.apache.http,
+              org.apache.http.auth,
+              org.apache.http.client,
+              org.apache.http.client.methods,
+              org.apache.http.conn,
+              org.apache.http.conn.scheme,
+              org.apache.http.conn.ssl,
+              org.apache.http.entity,
+              org.apache.http.impl.auth,
+              org.apache.http.impl.client,
+              org.apache.http.impl.client.cache,
+              org.apache.http.impl.conn,
+              org.apache.http.message,
+              org.apache.http.params,
+              org.apache.http.protocol,
+              org.ektorp.changes;version="[1.4,2)",
+              org.ektorp.docref;version="[1.4,2)",
+              org.ektorp.http;version="[1.4,2)",
+              org.ektorp.util;version="[1.4,2)",
+              org.slf4j;version="[1.6,2)"
+            </Import-Package>
+	    <Export-Package>
+              org.ektorp;
+		uses:="com.fasterxml.jackson.annotation,
+			com.fasterxml.jackson.core,
+			com.fasterxml.jackson.databind,
+			com.fasterxml.jackson.databind.annotation,
+			org.ektorp.changes,
+			org.ektorp.http,
+			org.ektorp.support";
+		version=1.4.2,
+	      org.ektorp.changes;uses:=com.fasterxml.jackson.databind;version=1.4.2,
+	      org.ektorp.dataload;uses:="com.fasterxml.jackson.databind,org.ektorp";version=1.4.2,
+	      org.ektorp.docref;uses:=com.fasterxml.jackson.annotation;version=1.4.2,
+              org.ektorp.impl;
+		uses:="com.fasterxml.jackson.annotation,
+			com.fasterxml.jackson.databind,
+			org.apache.http,
+			org.ektorp,
+			org.ektorp.changes,
+			org.ektorp.http";
+		version=1.4.2,
+	      org.ektorp.util;version=1.4.2,
+	      org.ektorp.http;
+		uses:="com.fasterxml.jackson.databind,
+			org.apache.http,
+			org.apache.http.client,
+			org.apache.http.client.methods,
+			org.apache.http.conn,
+			org.apache.http.conn.scheme,
+			org.apache.http.conn.ssl,
+			org.apache.http.entity,
+			org.apache.http.params,
+			org.apache.http.protocol,
+			org.ektorp";
+		version=1.4.2,
+	      org.ektorp.support;uses:="com.fasterxml.jackson.annotation,com.fasterxml.jackson.core,org.ektorp,org.slf4j";version=1.4.2
+            </Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+  </plugins>
+</build>
 
 	<dependencies>
 		<dependency>
